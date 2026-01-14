@@ -1,0 +1,34 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS movie (
+  id INTEGER PRIMARY KEY,
+  title TEXT NOT NULL,
+  year INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS genre (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS star (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS movie_genre (
+  movie_id INTEGER NOT NULL,
+  genre_id INTEGER NOT NULL,
+  PRIMARY KEY (movie_id, genre_id),
+  FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE CASCADE,
+  FOREIGN KEY (genre_id) REFERENCES genre(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS movie_star (
+  movie_id INTEGER NOT NULL,
+  star_id INTEGER NOT NULL,
+  PRIMARY KEY (movie_id, star_id),
+  FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE CASCADE,
+  FOREIGN KEY (star_id) REFERENCES star(id) ON DELETE CASCADE
+);
+
